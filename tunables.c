@@ -20,6 +20,7 @@ int tunable_anon_other_write_enable;
 int tunable_chown_uploads;
 int tunable_connect_from_port_20;
 int tunable_xferlog_enable;
+int tunable_utf8_ctype_enable;
 int tunable_dirmessage_enable;
 int tunable_anon_world_readable_only;
 int tunable_async_abor_enable;
@@ -164,6 +165,7 @@ tunables_load_defaults()
   tunable_chown_uploads = 0;
   tunable_connect_from_port_20 = 0;
   tunable_xferlog_enable = 0;
+  tunable_utf8_ctype_enable = 0;
   tunable_dirmessage_enable = 0;
   tunable_anon_world_readable_only = 1;
   tunable_async_abor_enable = 0;

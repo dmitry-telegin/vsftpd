@@ -21,6 +21,7 @@ extern int tunable_anon_other_write_enable;   /* APPE DELE RMD RNFR for anon */
 extern int tunable_chown_uploads;             /* chown() anon uploaded files */
 extern int tunable_connect_from_port_20;      /* PORT connects from port 20 */
 extern int tunable_xferlog_enable;            /* Log transfers to a file */
+extern int tunable_utf8_ctype_enable;         /* Server run under UTF8 LC_CTYPE */
 extern int tunable_dirmessage_enable;         /* Look for + output .message */
 extern int tunable_anon_world_readable_only;  /* Only serve world readable */
 extern int tunable_async_abor_enable;         /* Enable async ABOR requests */

@@ -96,6 +96,7 @@ char str_get_char_at(const struct mystr* p_str, const unsigned int indexx);
 int str_contains_space(const struct mystr* p_str);
 int str_all_space(const struct mystr* p_str);
 int str_contains_unprintable(const struct mystr* p_str);
+void str_replace_unprintable_utf8(struct mystr *p_str, const char new_char);
 void str_replace_unprintable(struct mystr* p_str, char new_char);
 int str_atoi(const struct mystr* p_str);
 filesize_t str_a_to_filesize_t(const struct mystr* p_str);

@@ -20,6 +20,10 @@
 #include "utility.h"
 #include "sysutil.h"
 
+// libunistring for UTF-8
+#include <unistr.h>
+#include <unictype.h>
+
 /* File local functions */
 static void str_split_text_common(struct mystr* p_src, struct mystr* p_rhs,
                                   const char* p_text, int is_reverse);
@@ -696,6 +700,41 @@ str_contains_line(const struct mystr* p_str, const struct mystr* p_line_str)
     }
   }
   return 0;
+}
+
+void
+str_replace_unprintable_utf8(struct mystr *p_str, const char new_char)
+{
+  ucs4_t uc;
+  int char_size;
+  char *pos = p_str->p_buf;
+  while (p_str->len - (pos - p_str->p_buf) > 0)
+  {
+    char_size = u8_mbtoucr(&uc, pos, p_str->len - (size_t)(pos - p_str->p_buf));
+    if (char_size < 0)
+    {
+      // Broken UTF-8 char
+      pos[0] = new_char;
+      ++pos;
+    }
+    else if (char_size > 0)
+    {
+      // Correct UTF-8 char
+      if (!uc_is_print(uc))
+      {
+        int i;
+        for (i = 0; i < char_size; ++i)
+        {
+          pos[i] = new_char;
+        }
+      }
+      pos += char_size;
+    }
+    else
+    {
+      bug("u8_mbtoucr");
+    }
+  }
 }
 
 void

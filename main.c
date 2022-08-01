@@ -22,10 +22,13 @@
 #include "tcpwrap.h"
 #include "vsftpver.h"
 #include "ssl.h"
+#include <stdlib.h>
+#include <locale.h>
 
 /*
  * Forward decls of helper functions
  */
+static void autodetect_utf8_encoding(int *is_utf8_ctype);
 static void die_unless_privileged(void);
 static void do_sanity_checks(void);
 static void session_init(struct vsf_session* p_sess);
@@ -71,6 +74,7 @@ main(int argc, const char* argv[])
   int config_loaded = 0;
   int i;
   tunables_load_defaults();
+  autodetect_utf8_encoding(&tunable_utf8_ctype_enable);
   /* This might need to open /dev/zero on systems lacking MAP_ANON. Needs
    * to be done early (i.e. before config file parse, which may use
    * anonymous pages
@@ -254,6 +258,48 @@ main(int argc, const char* argv[])
   /* NOTREACHED */
   bug("should not get here: main");
   return 1;
+}
+
+static void
+autodetect_utf8_encoding(int *is_utf8_ctype)
+{
+  // Setup program locale according to the environment variables.
+  if (NULL == setlocale(LC_ALL, ""))
+  {
+    bug("setlocale(LC_ALL, \"\")");
+  }
+
+  // Reading current LC_CTYPE.
+  char *locale_ctype_raw = setlocale(LC_CTYPE, NULL);
+  if (NULL == locale_ctype_raw)
+  {
+    bug("setlocale(LC_CTYPE, NULL)");
+  }
+
+  *is_utf8_ctype = 0;
+  if (MB_CUR_MAX > 1)
+  {
+    struct mystr locale_ctype = INIT_MYSTR;
+    str_alloc_text(&locale_ctype, locale_ctype_raw);
+    str_upper(&locale_ctype);
+
+    // Looking for UTF-8 or UTF8 in LC_CTYPE
+    struct str_locate_result locate_result = str_locate_text(&locale_ctype,
+      "UTF-8");
+    if (locate_result.found)
+    {
+      *is_utf8_ctype = 1;
+    }
+    else
+    {
+      locate_result = str_locate_text(&locale_ctype, "UTF8");
+      if (locate_result.found)
+      {
+        *is_utf8_ctype = 1;
+      }
+    }
+    str_free(&locale_ctype);
+  }
 }
 
 static void

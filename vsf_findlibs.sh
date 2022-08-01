@@ -32,6 +32,13 @@ fi
 # you link in PAM
 locate_library /lib/libdl.so && echo "-ldl";
 
+# Look for libunistring2. UTF-8 needs this.
+locate_library /lib/x86_64-linux-gnu/libunistring.so.2 && echo "-lunistring";
+locate_library /lib/i386-linux-gnu/libunistring.so.2 && echo "-lunistring";
+locate_library /lib64/libunistring.so.2 && echo "-lunistring";
+locate_library /lib32/libunistring.so.2 && echo "-lunistring";
+locate_library /lib/libunistring.so.2 && echo "-lunistring";
+
 # Look for libsocket. Solaris needs this.
 locate_library /lib/libsocket.so && echo "-lsocket";
 
