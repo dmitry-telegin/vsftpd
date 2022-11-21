@@ -124,6 +124,11 @@ main(int argc, const char* argv[])
     }
     vsf_sysutil_free(p_statbuf);
   }
+  /* Setup LC_TIME for customize file date display */
+  if (NULL == setlocale(LC_TIME, tunable_custom_lc_time))
+  {
+    bug("setlocale(LC_TIME, tunable_custom_lc_time)");
+  }
   /* Resolve pasv_address if required */
   if (tunable_pasv_address && tunable_pasv_addr_resolve)
   {

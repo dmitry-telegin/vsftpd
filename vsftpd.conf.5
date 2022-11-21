@@ -846,6 +846,16 @@ then the denial takes precedence. (Added in v2.1.0).
 
 Default: (none)
 .TP
+.B custom_lc_time
+Setup LC_TIME for customize date display.
+The default is "C" (what will give LC_TIME=C) - this is important for the "ls"
+command in older ftp clients and curlftpfs.
+If you want to see the date in your national encoding, for example, Russian,
+then you need to specify it like this:
+custom_lc_time=ru_RU.UTF-8
+
+Default: C
+.TP
 .B deny_file
 This option can be used to set a pattern for filenames (and directory names
 etc.) which should not be accessible in any way. The affected items are not

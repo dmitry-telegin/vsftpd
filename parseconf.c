@@ -153,6 +153,7 @@ parseconf_str_array[] =
   { "secure_chroot_dir", &tunable_secure_chroot_dir },
   { "ftp_username", &tunable_ftp_username },
   { "chown_username", &tunable_chown_username },
+  { "custom_lc_time", &tunable_custom_lc_time },
   { "xferlog_file", &tunable_xferlog_file },
   { "vsftpd_log_file", &tunable_vsftpd_log_file },
   { "message_file", &tunable_message_file },

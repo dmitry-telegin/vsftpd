@@ -117,6 +117,7 @@ unsigned int tunable_chown_upload_mode;
 const char* tunable_secure_chroot_dir;
 const char* tunable_ftp_username;
 const char* tunable_chown_username;
+const char* tunable_custom_lc_time;
 const char* tunable_xferlog_file;
 const char* tunable_vsftpd_log_file;
 const char* tunable_message_file;
@@ -266,6 +267,7 @@ tunables_load_defaults()
   install_str_setting("/usr/share/empty", &tunable_secure_chroot_dir);
   install_str_setting("ftp", &tunable_ftp_username);
   install_str_setting("root", &tunable_chown_username);
+  install_str_setting("C", &tunable_custom_lc_time);
   install_str_setting("/var/log/xferlog", &tunable_xferlog_file);
   install_str_setting("/var/log/vsftpd.log", &tunable_vsftpd_log_file);
   install_str_setting(".message", &tunable_message_file);

@@ -120,6 +120,7 @@ extern unsigned int tunable_chown_upload_mode;
 extern const char* tunable_secure_chroot_dir;
 extern const char* tunable_ftp_username;
 extern const char* tunable_chown_username;
+extern const char* tunable_custom_lc_time;
 extern const char* tunable_xferlog_file;
 extern const char* tunable_vsftpd_log_file;
 extern const char* tunable_message_file;
